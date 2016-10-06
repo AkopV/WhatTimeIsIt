@@ -10,6 +10,9 @@ public class WhatTimeIsIt {
     private Locale ruLocale = new Locale("ru", "RU");
     private ResourceBundle bundle = ResourceBundle.getBundle("messages_ru_RU", ruLocale);
 
+    public WhatTimeIsIt() {
+    }
+
     public int getCurrentHour() {
         LocalTime timePoint;
         DateTimeFormatter formatterHour = DateTimeFormatter.ofPattern("HH");
