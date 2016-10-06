@@ -9,22 +9,20 @@ public class WhatTimeIsIt {
 
     private Locale ruLocale = new Locale("ru", "RU");
     private ResourceBundle bundle = ResourceBundle.getBundle("messages_ru_RU", ruLocale);
+    private LocalTime timePoint = LocalTime.now();;
+    private DateTimeFormatter formatterHour;
 
     public WhatTimeIsIt() {
     }
 
     public int getCurrentHour() {
-        LocalTime timePoint;
-        DateTimeFormatter formatterHour = DateTimeFormatter.ofPattern("HH");
-        timePoint = LocalTime.now();
+        formatterHour = DateTimeFormatter.ofPattern("HH");
         String hour = timePoint.format(formatterHour);
         return Integer.parseInt(hour);
     }
 
     public LocalTime getCurrentTime() {
-        LocalTime timePoint;
-        DateTimeFormatter formatterHour = DateTimeFormatter.ofPattern("HH:mm:ss");
-        timePoint = LocalTime.now();
+        formatterHour = DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalTime localTime = LocalTime.parse(timePoint.format(formatterHour));
         return localTime;
     }
