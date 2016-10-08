@@ -1,5 +1,6 @@
 # WhatTimeIsIt
 [![Build Status](https://travis-ci.org/AkopV/WhatTimeIsIt.svg?branch=master)](https://travis-ci.org/AkopV/WhatTimeIsIt)
+https://travis-ci.org/travis-ci/travis-web.svg?branch=master
 
 консольное приложение на java, с использованием maven.
 
