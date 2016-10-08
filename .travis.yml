@@ -1,6 +1,7 @@
 language: java
-mvn test
--Dmaven.javadoc.skip=true)
+sudo: false
+script: mvn clean verify
+Dmaven.javadoc.skip=true)
 mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 script:
   - jdk_switcher use oraclejdk8
