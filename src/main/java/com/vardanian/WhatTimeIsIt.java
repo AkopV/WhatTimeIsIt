@@ -1,5 +1,7 @@
 package com.vardanian;
 
+import org.apache.log4j.Logger;
+
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -7,9 +9,12 @@ import java.util.ResourceBundle;
 
 public class WhatTimeIsIt {
 
-    private Locale ruLocale = new Locale("ru", "RU");
-    private ResourceBundle bundle = ResourceBundle.getBundle("messages_ru_RU", ruLocale);
-    private LocalTime timePoint = LocalTime.now();;
+    private static final Logger LOG = Logger.getLogger(WhatTimeIsIt.class);
+
+    private static final Locale DEFAULT_LOCALE = Locale.getDefault();
+    private static final ResourceBundle MESSAGES = ResourceBundle.getBundle("messages", DEFAULT_LOCALE);
+
+    private LocalTime timePoint = LocalTime.now();
     private DateTimeFormatter formatterHour;
 
     public WhatTimeIsIt() {
@@ -27,41 +32,30 @@ public class WhatTimeIsIt {
         return localTime;
     }
 
-    public String showMessage(int hour) {
-        if (hour >= 6 && hour < 9) {
-            return "Good morning, World!";
-        } else if (hour >= 9 && hour < 19) {
-            return "Good day, World!";
-        } else if (hour >= 19 && hour < 23) {
-            return "Good evening, World!";
-        } else if (hour >= 23 || hour < 6) {
-            return "Good night, World!";
-        }
-        return "alarm";
-    }
-
-    public String showMessage(LocalTime localTime) {
-        if (localTime.isAfter(LocalTime.parse(DayPeriods.MORNING.toString()))
+    public static String showMessage(LocalTime localTime) {
+        if (localTime == LocalTime.parse(DayPeriods.MORNING.toString())
+                || localTime.isAfter(LocalTime.parse(DayPeriods.MORNING.toString()))
                 && localTime.isBefore(LocalTime.parse(DayPeriods.DAY.toString()))) {
-            return bundle.getString("my.morning");
-        } else if (localTime.isAfter(LocalTime.parse(DayPeriods.DAY.toString()))
+            LOG.info("Print good morning, World!");
+            return MESSAGES.getString("my.morning");
+        } else if (localTime == LocalTime.parse(DayPeriods.DAY.toString())
+                || localTime.isAfter(LocalTime.parse(DayPeriods.DAY.toString()))
                 && localTime.isBefore(LocalTime.parse(DayPeriods.EVENING.toString()))) {
-            return bundle.getString("my.day");
-        } else if (localTime.isAfter(LocalTime.parse(DayPeriods.EVENING.toString()))
+            LOG.info("Print good day, World!");
+            return MESSAGES.getString("my.day");
+        } else if (localTime == LocalTime.parse(DayPeriods.EVENING.toString())
+                || localTime.isAfter(LocalTime.parse(DayPeriods.EVENING.toString()))
                 && localTime.isBefore(LocalTime.parse(DayPeriods.NIGHT.toString()))) {
-            return bundle.getString("my.evening");
-        } else if (localTime.isAfter(LocalTime.parse(DayPeriods.NIGHT.toString()))
+            LOG.info("Print good evening, World!");
+            return MESSAGES.getString("my.evening");
+        } else if (localTime == LocalTime.parse(DayPeriods.NIGHT.toString())
+                || localTime.isAfter(LocalTime.parse(DayPeriods.NIGHT.toString()))
                 || localTime.isBefore(LocalTime.parse(DayPeriods.MORNING.toString()))) {
-            return bundle.getString("my.night");
+            LOG.info("Print good night, World!");
+            return MESSAGES.getString("my.night");
         }
+        LOG.warn("Print alarm, day periods didn't exist!");
         return "alarm";
-    }
-
-    public void messageValues(ResourceBundle bundle) {
-        System.out.println(bundle.getString("my.morning"));
-        System.out.println(bundle.getString("my.day"));
-        System.out.println(bundle.getString("my.evening"));
-        System.out.println(bundle.getString("my.night"));
     }
 
     public static void main(String[] args) {
@@ -69,6 +63,6 @@ public class WhatTimeIsIt {
         WhatTimeIsIt whatTimeIsIt = new WhatTimeIsIt();
 
         LocalTime localTime = whatTimeIsIt.getCurrentTime();
-        System.out.println(whatTimeIsIt.showMessage(localTime));
+        System.out.println(showMessage(localTime));
     }
 }
