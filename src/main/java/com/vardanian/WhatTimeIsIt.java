@@ -20,12 +20,6 @@ public class WhatTimeIsIt {
     public WhatTimeIsIt() {
     }
 
-    public int getCurrentHour() {
-        formatterHour = DateTimeFormatter.ofPattern("HH");
-        String hour = timePoint.format(formatterHour);
-        return Integer.parseInt(hour);
-    }
-
     public LocalTime getCurrentTime() {
         formatterHour = DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalTime localTime = LocalTime.parse(timePoint.format(formatterHour));
