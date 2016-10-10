@@ -26,30 +26,37 @@ public class WhatTimeIsIt {
         return localTime;
     }
 
-    public static String showMessage(LocalTime localTime) {
+    public String showMessage(LocalTime localTime) {
+        String message = "";
         if (localTime == LocalTime.parse(DayPeriods.MORNING.toString())
-                || localTime.isAfter(LocalTime.parse(DayPeriods.MORNING.toString()))
-                && localTime.isBefore(LocalTime.parse(DayPeriods.DAY.toString()))) {
+                || isDefinedDayPeriod(localTime,getPeriod(DayPeriods.MORNING.getTime()), getPeriod(DayPeriods.DAY.getTime()))){
             LOG.info("Print good morning, World!");
-            return MESSAGES.getString("my.morning");
+            message = MESSAGES.getString("my.morning");
         } else if (localTime == LocalTime.parse(DayPeriods.DAY.toString())
-                || localTime.isAfter(LocalTime.parse(DayPeriods.DAY.toString()))
-                && localTime.isBefore(LocalTime.parse(DayPeriods.EVENING.toString()))) {
+                || (isDefinedDayPeriod(localTime, getPeriod(DayPeriods.DAY.getTime()), getPeriod(DayPeriods.EVENING.getTime())))) {
             LOG.info("Print good day, World!");
-            return MESSAGES.getString("my.day");
+            message =  MESSAGES.getString("my.day");
         } else if (localTime == LocalTime.parse(DayPeriods.EVENING.toString())
-                || localTime.isAfter(LocalTime.parse(DayPeriods.EVENING.toString()))
-                && localTime.isBefore(LocalTime.parse(DayPeriods.NIGHT.toString()))) {
+                || (isDefinedDayPeriod(localTime,getPeriod(DayPeriods.EVENING.getTime()), getPeriod(DayPeriods.NIGHT.getTime())))){
             LOG.info("Print good evening, World!");
-            return MESSAGES.getString("my.evening");
+            message = MESSAGES.getString("my.evening");
         } else if (localTime == LocalTime.parse(DayPeriods.NIGHT.toString())
-                || localTime.isAfter(LocalTime.parse(DayPeriods.NIGHT.toString()))
-                || localTime.isBefore(LocalTime.parse(DayPeriods.MORNING.toString()))) {
+                || isDefinedDayPeriod(localTime,getPeriod(DayPeriods.NIGHT.getTime()), getPeriod(DayPeriods.MORNING.getTime()))) {
             LOG.info("Print good night, World!");
-            return MESSAGES.getString("my.night");
+            message = MESSAGES.getString("my.night");
+        } else {
+            message = "Error";
+            LOG.warn("Print alarm, day periods didn't exist!");
         }
-        LOG.warn("Print alarm, day periods didn't exist!");
-        return "alarm";
+        return message;
+    }
+
+    private LocalTime getPeriod(String period) {
+        return LocalTime.parse(period);
+    }
+
+    private boolean isDefinedDayPeriod(LocalTime current, LocalTime start, LocalTime end) {
+        return current.isAfter(start) && current.isBefore(end);
     }
 
     public static void main(String[] args) {
@@ -57,6 +64,6 @@ public class WhatTimeIsIt {
         WhatTimeIsIt whatTimeIsIt = new WhatTimeIsIt();
 
         LocalTime localTime = whatTimeIsIt.getCurrentTime();
-        System.out.println(showMessage(localTime));
+        System.out.println(whatTimeIsIt.showMessage(localTime));
     }
 }

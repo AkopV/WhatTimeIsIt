@@ -14,4 +14,8 @@ public enum DayPeriods {
     public String toString() {
         return time;
     }
+
+    public String getTime() {
+        return time;
+    }
 }
