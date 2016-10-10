@@ -10,10 +10,11 @@ import static org.testng.Assert.assertEquals;
 
 public class WhatTimeIsItTest {
 
-    private WhatTimeIsIt whatTimeIsIt = new WhatTimeIsIt();
-    private String message;
     private static final Locale DEFAULT_LOCALE = Locale.getDefault();
     private static final ResourceBundle MESSAGES = ResourceBundle.getBundle("messages", DEFAULT_LOCALE);
+
+    private String message = "";
+    private WhatTimeIsIt whatTimeIsIt = new WhatTimeIsIt();
 
     @Test
     public void testMorning(){
