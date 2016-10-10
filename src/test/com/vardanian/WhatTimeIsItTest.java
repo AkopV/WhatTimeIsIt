@@ -12,8 +12,7 @@ public class WhatTimeIsItTest {
 
     private static final Locale DEFAULT_LOCALE = Locale.getDefault();
     private static final ResourceBundle MESSAGES = ResourceBundle.getBundle("messages", DEFAULT_LOCALE);
-
-
+    
     private WhatTimeIsIt whatTimeIsIt = new WhatTimeIsIt();
 
     @Test
