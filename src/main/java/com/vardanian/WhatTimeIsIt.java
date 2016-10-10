@@ -15,33 +15,28 @@ public class WhatTimeIsIt {
     private static final ResourceBundle MESSAGES = ResourceBundle.getBundle("messages", DEFAULT_LOCALE);
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-    private LocalTime timePoint = LocalTime.now();
-
-    public WhatTimeIsIt() {
-    }
-
-    public LocalTime getCurrentTime() {
-        LocalTime localTime = LocalTime.parse(timePoint.format(TIME_FORMATTER));
-        return localTime;
+    private LocalTime getCurrentTime() {
+        LocalTime timePoint = LocalTime.now();
+        return LocalTime.parse(timePoint.format(TIME_FORMATTER));
     }
 
     public String showMessage(LocalTime localTime) {
         String message = "";
-        if (localTime == getPeriod(DayPeriods.MORNING.getTime())
-                || isDefinedDayPeriod(localTime,getPeriod(DayPeriods.MORNING.getTime()), getPeriod(DayPeriods.DAY.getTime()))){
+        if (localTime == getPeriod(DayPeriods.MORNING.toString())
+                || isDefinedDayPeriod(localTime,getPeriod(DayPeriods.MORNING.toString()), getPeriod(DayPeriods.DAY.toString()))){
             LOG.info("Print good morning, World!");
             message = MESSAGES.getString("my.morning");
-        } else if (localTime == getPeriod(DayPeriods.DAY.getTime())
-                || isDefinedDayPeriod(localTime, getPeriod(DayPeriods.DAY.getTime()), getPeriod(DayPeriods.EVENING.getTime()))) {
+        } else if (localTime == getPeriod(DayPeriods.DAY.toString())
+                || isDefinedDayPeriod(localTime, getPeriod(DayPeriods.DAY.toString()), getPeriod(DayPeriods.EVENING.toString()))) {
             LOG.info("Print good day, World!");
             message =  MESSAGES.getString("my.day");
-        } else if (localTime == getPeriod(DayPeriods.EVENING.getTime())
-                || isDefinedDayPeriod(localTime,getPeriod(DayPeriods.EVENING.getTime()), getPeriod(DayPeriods.NIGHT.getTime()))){
+        } else if (localTime == getPeriod(DayPeriods.EVENING.toString())
+                || isDefinedDayPeriod(localTime,getPeriod(DayPeriods.EVENING.toString()), getPeriod(DayPeriods.NIGHT.toString()))){
             LOG.info("Print good evening, World!");
             message = MESSAGES.getString("my.evening");
-        } else if (localTime == getPeriod(DayPeriods.NIGHT.getTime())
-                || localTime.isAfter(getPeriod(DayPeriods.NIGHT.getTime()))
-                || localTime.isBefore(getPeriod(DayPeriods.MORNING.getTime()))) {
+        } else if (localTime == getPeriod(DayPeriods.NIGHT.toString())
+                || localTime.isAfter(getPeriod(DayPeriods.NIGHT.toString()))
+                || localTime.isBefore(getPeriod(DayPeriods.MORNING.toString()))) {
             LOG.info("Print good night, World!");
             message = MESSAGES.getString("my.night");
         } else {
@@ -64,6 +59,7 @@ public class WhatTimeIsIt {
         WhatTimeIsIt whatTimeIsIt = new WhatTimeIsIt();
 
         LocalTime localTime = whatTimeIsIt.getCurrentTime();
-        System.out.println(whatTimeIsIt.showMessage(localTime));
+        String message = whatTimeIsIt.showMessage(localTime);
+        System.out.println(message);
     }
 }
