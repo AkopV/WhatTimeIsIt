@@ -27,20 +27,21 @@ public class WhatTimeIsIt {
 
     public String showMessage(LocalTime localTime) {
         String message = "";
-        if (localTime == LocalTime.parse(DayPeriods.MORNING.toString())
+        if (localTime == getPeriod(DayPeriods.MORNING.getTime())
                 || isDefinedDayPeriod(localTime,getPeriod(DayPeriods.MORNING.getTime()), getPeriod(DayPeriods.DAY.getTime()))){
             LOG.info("Print good morning, World!");
             message = MESSAGES.getString("my.morning");
-        } else if (localTime == LocalTime.parse(DayPeriods.DAY.toString())
-                || (isDefinedDayPeriod(localTime, getPeriod(DayPeriods.DAY.getTime()), getPeriod(DayPeriods.EVENING.getTime())))) {
+        } else if (localTime == getPeriod(DayPeriods.DAY.getTime())
+                || isDefinedDayPeriod(localTime, getPeriod(DayPeriods.DAY.getTime()), getPeriod(DayPeriods.EVENING.getTime()))) {
             LOG.info("Print good day, World!");
             message =  MESSAGES.getString("my.day");
-        } else if (localTime == LocalTime.parse(DayPeriods.EVENING.toString())
-                || (isDefinedDayPeriod(localTime,getPeriod(DayPeriods.EVENING.getTime()), getPeriod(DayPeriods.NIGHT.getTime())))){
+        } else if (localTime == getPeriod(DayPeriods.EVENING.getTime())
+                || isDefinedDayPeriod(localTime,getPeriod(DayPeriods.EVENING.getTime()), getPeriod(DayPeriods.NIGHT.getTime()))){
             LOG.info("Print good evening, World!");
             message = MESSAGES.getString("my.evening");
-        } else if (localTime == LocalTime.parse(DayPeriods.NIGHT.toString())
-                || isDefinedDayPeriod(localTime,getPeriod(DayPeriods.NIGHT.getTime()), getPeriod(DayPeriods.MORNING.getTime()))) {
+        } else if (localTime == getPeriod(DayPeriods.NIGHT.getTime())
+                || localTime.isAfter(getPeriod(DayPeriods.NIGHT.getTime()))
+                || localTime.isBefore(getPeriod(DayPeriods.MORNING.getTime()))) {
             LOG.info("Print good night, World!");
             message = MESSAGES.getString("my.night");
         } else {
