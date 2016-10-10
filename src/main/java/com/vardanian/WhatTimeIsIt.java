@@ -42,7 +42,7 @@ public class WhatTimeIsIt {
             message = MESSAGES.getString("my.night");
         } else {
             message = "Error";
-            LOG.warn("Print alarm, day periods didn't exist!");
+            LOG.warn("Day period doesn't exist!");
         }
         return message;
     }
