@@ -13,16 +13,15 @@ public class WhatTimeIsIt {
 
     private static final Locale DEFAULT_LOCALE = Locale.getDefault();
     private static final ResourceBundle MESSAGES = ResourceBundle.getBundle("messages", DEFAULT_LOCALE);
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     private LocalTime timePoint = LocalTime.now();
-    private DateTimeFormatter formatterHour;
 
     public WhatTimeIsIt() {
     }
 
     public LocalTime getCurrentTime() {
-        formatterHour = DateTimeFormatter.ofPattern("HH:mm:ss");
-        LocalTime localTime = LocalTime.parse(timePoint.format(formatterHour));
+        LocalTime localTime = LocalTime.parse(timePoint.format(TIME_FORMATTER));
         return localTime;
     }
 
