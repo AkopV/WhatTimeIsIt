@@ -13,30 +13,30 @@ public class WhatTimeIsItTest {
     private static final Locale DEFAULT_LOCALE = Locale.getDefault();
     private static final ResourceBundle MESSAGES = ResourceBundle.getBundle("messages", DEFAULT_LOCALE);
 
-    private String message = "";
+
     private WhatTimeIsIt whatTimeIsIt = new WhatTimeIsIt();
 
     @Test
     public void testMorning(){
-        message = whatTimeIsIt.showMessage(LocalTime.parse("06:00:00"));
+        String message = whatTimeIsIt.showMessage(LocalTime.parse("06:00:00"));
         assertEquals(MESSAGES.getString("my.morning"), message);
     }
 
     @Test
     public void testDay(){
-        message = whatTimeIsIt.showMessage(LocalTime.parse("09:50:00"));
+        String message =  whatTimeIsIt.showMessage(LocalTime.parse("09:50:00"));
         assertEquals(MESSAGES.getString("my.day"), message);
     }
 
     @Test
     public void testEvening(){
-        message = whatTimeIsIt.showMessage(LocalTime.parse("22:00:00"));
+        String message = whatTimeIsIt.showMessage(LocalTime.parse("22:00:00"));
         assertEquals(MESSAGES.getString("my.evening"), message);
     }
 
     @Test
     public void testNight(){
-        message = whatTimeIsIt.showMessage(LocalTime.parse("05:00:00"));
+        String message = whatTimeIsIt.showMessage(LocalTime.parse("05:00:00"));
         assertEquals(MESSAGES.getString("my.night"), message);
     }
 }

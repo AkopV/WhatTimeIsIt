@@ -13,11 +13,12 @@ public class WhatTimeIsIt {
 
     private static final Locale DEFAULT_LOCALE = Locale.getDefault();
     private static final ResourceBundle MESSAGES = ResourceBundle.getBundle("messages", DEFAULT_LOCALE);
-    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
+    private static final String PATTERN_TIME = "HH:mm:ss";
 
     private LocalTime getCurrentTime() {
         LocalTime timePoint = LocalTime.now();
-        return LocalTime.parse(timePoint.format(TIME_FORMATTER));
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(PATTERN_TIME);
+        return LocalTime.parse(timePoint.format(timeFormatter));
     }
 
     public String showMessage(LocalTime localTime) {
